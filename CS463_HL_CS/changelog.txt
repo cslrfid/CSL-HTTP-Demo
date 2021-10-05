@@ -1,3 +1,6 @@
+v1.0.0.2
+- change PC time to reader time
+
 v1.0.0.1
 - fix can not show "none" action
 - fix show wrong frequency

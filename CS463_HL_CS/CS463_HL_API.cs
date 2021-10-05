@@ -13,7 +13,7 @@ namespace CSL
 {
     public class CS463_HL_API
     {
-        public const string ApiVersion = "1.0.0.1";
+        public const string ApiVersion = "1.0.0.2";
 
         private Uri httpUri;
 
@@ -103,6 +103,12 @@ namespace CSL
             get { return (ErrorCode); }
         }
         #endregion
+
+        static public DateTime ConvertFromUnixTimestamp(double timestamp)
+        {
+            DateTime st = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return st.AddSeconds(timestamp);
+        }
 
         public string getURI()
         {
@@ -306,7 +312,8 @@ namespace CSL
                                             tag.ServerIp = att.InnerXml;
                                         }
                                     }
-                                    tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    //tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    tag.ApiTimeStampUTC = ConvertFromUnixTimestamp (tag.Time);
                                     tag.ServerIp = httpUri.Host;
                                     tags.Add(tag);
                                     node = node.NextSibling;
@@ -426,7 +433,8 @@ namespace CSL
                                             tag.ServerIp = att.InnerXml;
                                         }
                                     }
-                                    tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    //tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    tag.ApiTimeStampUTC = ConvertFromUnixTimestamp(tag.Time);
                                     tag.ServerIp = httpUri.Host;
                                     tags.Add(tag);
                                     node = node.NextSibling;
@@ -546,7 +554,8 @@ namespace CSL
                                             tag.ServerIp = att.InnerXml;
                                         }
                                     }
-                                    tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    //tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    tag.ApiTimeStampUTC = ConvertFromUnixTimestamp(tag.Time);
                                     tag.ServerIp = httpUri.Host;
                                     tags.Add(tag);
                                     node = node.NextSibling;
@@ -666,7 +675,8 @@ namespace CSL
                                             tag.ServerIp = att.InnerXml;
                                         }
                                     }
-                                    tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    //tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    tag.ApiTimeStampUTC = ConvertFromUnixTimestamp(tag.Time);
                                     tag.ServerIp = httpUri.Host;
                                     tags.Add(tag);
                                     node = node.NextSibling;
@@ -766,7 +776,8 @@ namespace CSL
                                             tag.PC = att.InnerXml.Trim();
                                         }
                                     }
-                                    tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    //tag.ApiTimeStampUTC = DateTime.UtcNow;
+                                    tag.ApiTimeStampUTC = ConvertFromUnixTimestamp(tag.Time);
                                     tags.Add(tag);
                                     node = node.NextSibling;
                                 }
@@ -4645,7 +4656,8 @@ namespace CSL
                     }
 
                 }
-                intag.ApiTimeStampUTC = DateTime.UtcNow;
+                //intag.ApiTimeStampUTC = DateTime.UtcNow;
+                intag.ApiTimeStampUTC = CS463_HL_API.ConvertFromUnixTimestamp(intag.Time);
                 OnTagReceiveEvent(new TagReceiveEventArgs(intag));
                 if (state.list.Count <= 10000)
                     state.list.Add(intag);      //add new tag to list if number of tag in list is not more than 10000
